@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "newciv:block/town_hall_block" }
+  }
+}
