@@ -2,4 +2,4 @@
 
 ## Overview
 
-Mod for minecraft that allows creation of civilizations
+Mod for minecraft that allows creation of civilizations similar to Age of Empires
