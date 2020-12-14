@@ -1,6 +1,7 @@
 package com.github.noblekalish;
 
 import com.github.noblekalish.block_entities.TownHallEntity;
+import com.github.noblekalish.blocks.FarmBlock;
 import com.github.noblekalish.blocks.TownHallBlock;
 import com.github.noblekalish.entities.FarmerEntity;
 import com.github.noblekalish.items.TownHallItem;
@@ -24,6 +25,7 @@ public class NewCivilization implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "newciv";
 
+    public static final FarmBlock FARM_BLOCK = new FarmBlock(FabricBlockSettings.of(Material.WOOD).hardness(4.0f));
     public static final TownHallBlock TOWN_HALL_BLOCK = new TownHallBlock(FabricBlockSettings.of(Material.METAL).hardness(4.0f));
     public static final TownHallItem TOWN_HALL_ITEM = new TownHallItem(TOWN_HALL_BLOCK, new Item.Settings().group(ItemGroup.MISC));
     public static final EntityType<FarmerEntity> FARMER_ENTITY = Registry.register(
@@ -36,6 +38,7 @@ public class NewCivilization implements ModInitializer {
     @Override
     public void onInitialize() {
         TOWN_HALL_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "modid:newciv", BlockEntityType.Builder.create(TownHallEntity::new, TOWN_HALL_BLOCK).build(null));
+        Registry.register(Registry.BLOCK, new Identifier(MODID, "farm_block"), FARM_BLOCK);
         Registry.register(Registry.BLOCK, new Identifier(MODID, "town_hall_block"), TOWN_HALL_BLOCK);
         Registry.register(Registry.ITEM, new Identifier(MODID, "town_hall_block"), TOWN_HALL_ITEM);
         FabricDefaultAttributeRegistry.register(FARMER_ENTITY, FarmerEntity.createMobAttributes());
