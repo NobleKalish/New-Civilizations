@@ -12,13 +12,10 @@ public class TownHallEntity extends BlockEntity {
 
     public CompoundTag toTag(CompoundTag tag) {
         super.toTag(tag);
-//      Save the current value of the number to the tag
-//      tag.putInt("number", number);
         return tag;
     }
 
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
-//        number = tag.getInt("number");
     }
 }
