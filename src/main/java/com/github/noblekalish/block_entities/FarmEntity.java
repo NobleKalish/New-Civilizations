@@ -6,7 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 
 public class FarmEntity extends BlockEntity {
-    private Integer woodRequirement = 6;
+    private int woodRequirement = 6;
 
     public FarmEntity() {
         super(NewCivilization.FARM_ENTITY);

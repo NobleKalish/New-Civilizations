@@ -48,8 +48,8 @@ public class NewCivilization implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        TOWN_HALL_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "modid:newciv", BlockEntityType.Builder.create(TownHallEntity::new, TOWN_HALL_BLOCK).build(null));
-        FARM_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "modid:newciv", BlockEntityType.Builder.create(FarmEntity::new, TOWN_HALL_BLOCK).build(null));
+        TOWN_HALL_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "newciv:townhall", BlockEntityType.Builder.create(TownHallEntity::new, TOWN_HALL_BLOCK).build(null));
+        FARM_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "newciv:farm", BlockEntityType.Builder.create(FarmEntity::new, FARM_BLOCK).build(null));
 
         Registry.register(Registry.BLOCK, new Identifier(MODID, "farm_block"), FARM_BLOCK);
         Registry.register(Registry.BLOCK, new Identifier(MODID, "town_hall_block"), TOWN_HALL_BLOCK);
