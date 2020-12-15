@@ -1,4 +1,4 @@
-package com.github.noblekalish.block_entities;
+package com.github.noblekalish.block_entity;
 
 import com.github.noblekalish.ImplementedInventory;
 import com.github.noblekalish.NewCivilization;

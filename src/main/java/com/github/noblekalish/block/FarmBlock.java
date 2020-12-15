@@ -1,6 +1,6 @@
-package com.github.noblekalish.blocks;
+package com.github.noblekalish.block;
 
-import com.github.noblekalish.block_entities.FarmEntity;
+import com.github.noblekalish.block_entity.FarmEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
