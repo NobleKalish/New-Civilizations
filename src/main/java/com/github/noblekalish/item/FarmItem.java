@@ -1,4 +1,4 @@
-package com.github.noblekalish.items;
+package com.github.noblekalish.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

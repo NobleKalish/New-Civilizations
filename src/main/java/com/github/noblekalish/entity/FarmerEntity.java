@@ -1,4 +1,4 @@
-package com.github.noblekalish.entities;
+package com.github.noblekalish.entity;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
