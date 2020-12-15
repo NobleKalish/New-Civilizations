@@ -6,7 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 
 public class FarmEntity extends BlockEntity {
-    private int woodAmount = 6;
+    private Integer woodRequirement = 6;
 
     public FarmEntity() {
         super(NewCivilization.FARM_ENTITY);
@@ -17,7 +17,7 @@ public class FarmEntity extends BlockEntity {
         super.toTag(tag);
 
         // Save the current value of the number to the tag
-        tag.putInt("woodAmount", woodAmount);
+        tag.putInt("woodRequirement", woodRequirement);
 
         return tag;
     }
@@ -25,7 +25,6 @@ public class FarmEntity extends BlockEntity {
     @Override
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
-        woodAmount = tag.getInt("woodAmount");
+        woodRequirement = tag.getInt("woodRequirement");
     }
 }
- 
