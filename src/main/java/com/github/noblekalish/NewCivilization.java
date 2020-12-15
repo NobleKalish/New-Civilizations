@@ -75,7 +75,5 @@ public class NewCivilization implements ModInitializer {
         RegistryKey<ConfiguredStructureFeature<?, ?>> myConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN,
                 new Identifier("newciv", "farm"));
         BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, myConfigured.getValue(), MY_CONFIGURED);
-
-        BiomeModifications.addStructure(BiomeSelectors.all(), myConfigured);
     }
 }
