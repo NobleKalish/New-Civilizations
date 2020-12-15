@@ -1,6 +1,6 @@
 package com.github.noblekalish.client.model;
 
-import com.github.noblekalish.entities.FarmerEntity;
+import com.github.noblekalish.entity.FarmerEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
