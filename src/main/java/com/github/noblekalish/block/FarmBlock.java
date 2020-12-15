@@ -1,14 +1,13 @@
 package com.github.noblekalish.block;
 
 import com.github.noblekalish.block_entity.FarmEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.StructureBlockBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -36,17 +35,22 @@ public class FarmBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
-            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-
-            if (screenHandlerFactory != null) {
-                //With this call the server will request the client to open the appropriate Screenhandler
-                player.openHandledScreen(screenHandlerFactory);
-            }
+//        if (!world.isClient) {
+//            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
+//            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
+//            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+//
+//            if (screenHandlerFactory != null) {
+//                //With this call the server will request the client to open the appropriate Screenhandler
+//                player.openHandledScreen(screenHandlerFactory);
+//            }
+//        }
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof FarmEntity && world instanceof ServerWorld) {
+            return ((FarmEntity)blockEntity).loadStructure((ServerWorld) world) ? ActionResult.SUCCESS : ActionResult.FAIL;
+        } else {
+            return ActionResult.PASS;
         }
-        return ActionResult.SUCCESS;
     }
 
 
