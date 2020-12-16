@@ -8,6 +8,7 @@ import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.PropertyDelegate;
@@ -27,11 +28,11 @@ import net.minecraft.util.math.ChunkPos;
 import java.util.Random;
 
 
-public class FarmEntity extends LootableContainerBlockEntity implements PropertyDelegateHolder {
+public class FarmEntity extends LootableContainerBlockEntity implements PropertyDelegateHolder, Tickable {
     private final String FARM_ID = "farm";
-    private final int woodRequirement = 6;
+    private static final int WOOD_REQUIREMENT = 6;
     private final BlockPos offset = new BlockPos(0, -1, 0);
-    private static final int MAX_PROGRESS = 500;
+    private static final int MAX_PROGRESS = 75;
     private int progress = 0;
 
     private final Identifier structureName = new Identifier(NewCivilization.MODID, FARM_ID);
@@ -44,15 +45,16 @@ public class FarmEntity extends LootableContainerBlockEntity implements Property
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
         Inventories.toTag(tag, items);
-        return tag;
+        tag.putInt("progress", progress);
+        return super.toTag(tag);
     }
 
     @Override
     public void fromTag(BlockState state, CompoundTag tag) {
         super.fromTag(state, tag);
         Inventories.fromTag(tag, items);
+        progress = tag.getInt("progress");
     }
 
     @Override
@@ -152,5 +154,31 @@ public class FarmEntity extends LootableContainerBlockEntity implements Property
     @Override
     public PropertyDelegate getPropertyDelegate() {
         return propertyDelegate;
+    }
+
+    @Override
+    public void tick() {
+        boolean dirty = false;
+
+        if (!this.world.isClient) {
+            ItemStack itemStack = (ItemStack)this.items.get(0);
+            if (!itemStack.isEmpty()) {
+                Item item = itemStack.getItem();
+
+                if (itemStack.getItem() != null && itemStack.getCount() >= WOOD_REQUIREMENT) {
+                    ++progress;
+                    if (progress == MAX_PROGRESS) {
+                        this.progress = 0;
+                        itemStack.decrement(6);
+                        this.loadStructure((ServerWorld)this.world);
+                        dirty = true;
+                    }
+                }
+            }
+        }
+
+        if (dirty) {
+            this.markDirty();
+        }
     }
 }

@@ -34,12 +34,6 @@ public class FarmBlock extends BlockWithEntity {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         return ActionResult.SUCCESS;
-//        BlockEntity blockEntity = world.getBlockEntity(pos);
-//        if (blockEntity instanceof FarmEntity && world instanceof ServerWorld) {
-//            return ((FarmEntity)blockEntity).loadStructure((ServerWorld) world) ? ActionResult.SUCCESS : ActionResult.FAIL;
-//        } else {
-//            return ActionResult.PASS;
-//        }
     }
 
 
