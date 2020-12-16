@@ -3,8 +3,8 @@ package com.github.noblekalish;
 import com.github.noblekalish.block.FarmBlock;
 import com.github.noblekalish.block_entity.FarmEntity;
 import com.github.noblekalish.block_entity.TownHallEntity;
+import com.github.noblekalish.gui.description.FarmGuiDescription;
 import com.github.noblekalish.item.FarmItem;
-import com.github.noblekalish.screen_handlers.FarmScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import com.github.noblekalish.block.TownHallBlock;
 import com.github.noblekalish.entity.FarmerEntity;
@@ -24,6 +24,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
@@ -42,7 +43,7 @@ public class NewCivilization implements ModInitializer {
     public static final String MODID = "newciv";
     public static BlockEntityType<TownHallEntity> TOWN_HALL_ENTITY;
     public static BlockEntityType<FarmEntity> FARM_ENTITY;
-    public static ScreenHandlerType<FarmScreenHandler> FARM_SCREEN_HANDLER;
+    public static ScreenHandlerType<FarmGuiDescription> FARM_SCREEN_HANDLER;
     public static final Identifier FARM = new Identifier(MODID, "farm_block");
 
     public static final ItemGroup NEW_CIV_GROUP = FabricItemGroupBuilder.create(
@@ -68,7 +69,7 @@ public class NewCivilization implements ModInitializer {
     public void onInitialize() {
         TOWN_HALL_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "newciv:townhall", BlockEntityType.Builder.create(TownHallEntity::new, TOWN_HALL_BLOCK).build(null));
         FARM_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "newciv:farm", BlockEntityType.Builder.create(FarmEntity::new, FARM_BLOCK).build(null));
-        FARM_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(FARM, FarmScreenHandler::new);
+        FARM_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(FARM, (syncId, inventory) -> new FarmGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY));
         Registry.register(Registry.BLOCK, new Identifier(MODID, "farm_block"), FARM_BLOCK);
         Registry.register(Registry.BLOCK, new Identifier(MODID, "town_hall_block"), TOWN_HALL_BLOCK);
 
