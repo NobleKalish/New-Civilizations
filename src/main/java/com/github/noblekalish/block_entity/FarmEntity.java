@@ -24,6 +24,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Random;
 
@@ -158,27 +159,24 @@ public class FarmEntity extends LootableContainerBlockEntity implements Property
 
     @Override
     public void tick() {
-        boolean dirty = false;
-
         if (!this.world.isClient) {
             ItemStack itemStack = (ItemStack)this.items.get(0);
             if (!itemStack.isEmpty()) {
                 Item item = itemStack.getItem();
-
-                if (itemStack.getItem() != null && itemStack.getCount() >= WOOD_REQUIREMENT) {
+                if (item.toString().contains("planks") && itemStack.getCount() >= WOOD_REQUIREMENT) {
                     ++progress;
                     if (progress == MAX_PROGRESS) {
                         this.progress = 0;
-                        itemStack.decrement(6);
+                        itemStack.decrement(WOOD_REQUIREMENT);
                         this.loadStructure((ServerWorld)this.world);
-                        dirty = true;
+                        this.markDirty();
                     }
+                } else {
+                    this.progress = 0;
                 }
+            } else {
+                this.progress = 0;
             }
-        }
-
-        if (dirty) {
-            this.markDirty();
         }
     }
 }

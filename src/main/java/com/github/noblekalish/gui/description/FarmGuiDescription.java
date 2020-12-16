@@ -23,7 +23,8 @@ public class FarmGuiDescription extends SyncedGuiDescription {
         root.setSize(300, 200);
 
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
-        WBar progressBar = new WBar(BG_TEXTURE, BAR_TEXTURE, this.propertyDelegate.get(0), this.propertyDelegate.get(1));
+        WBar progressBar = new WBar(BG_TEXTURE, BAR_TEXTURE, this.propertyDelegate.get(0), this.propertyDelegate.get(1), WBar.Direction.RIGHT);
+        progressBar.setSize(50, 10);
         root.add(itemSlot, 4, 1);
         root.add(progressBar, 10, 3);
 
