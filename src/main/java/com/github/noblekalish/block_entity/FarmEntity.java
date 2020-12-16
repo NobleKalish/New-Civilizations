@@ -2,6 +2,7 @@ package com.github.noblekalish.block_entity;
 
 import com.github.noblekalish.NewCivilization;
 import com.github.noblekalish.gui.description.FarmGuiDescription;
+import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.world.ServerWorld;
@@ -25,10 +27,12 @@ import net.minecraft.util.math.ChunkPos;
 import java.util.Random;
 
 
-public class FarmEntity extends LootableContainerBlockEntity {
+public class FarmEntity extends LootableContainerBlockEntity implements PropertyDelegateHolder {
     private final String FARM_ID = "farm";
     private final int woodRequirement = 6;
     private final BlockPos offset = new BlockPos(0, -1, 0);
+    private static final int MAX_PROGRESS = 500;
+    private int progress = 0;
 
     private final Identifier structureName = new Identifier(NewCivilization.MODID, FARM_ID);
     private DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
@@ -110,5 +114,43 @@ public class FarmEntity extends LootableContainerBlockEntity {
     @Override
     public int size() {
         return items.size();
+    }
+
+    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int size() {
+            // This is how many properties you have. We have two of them, so we'll return 2.
+            return 2;
+        }
+
+        @Override
+        public int get(int index) {
+            // Each property has a unique index that you can choose.
+            // Our properties will be 0 for the progress and 1 for the maximum.
+
+            if (index == 0) {
+                return progress;
+            } else if (index == 1) {
+                return MAX_PROGRESS;
+            }
+
+            // Unknown property IDs will fall back to -1
+            return -1;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            // This is used on the other side of the sync if you're using extended screen handlers.
+            // Generally you'll want to have a working implementation for mutable properties, such as our progress.
+
+            if (index == 0) {
+                progress = value;
+            }
+        }
+    };
+
+    @Override
+    public PropertyDelegate getPropertyDelegate() {
+        return propertyDelegate;
     }
 }

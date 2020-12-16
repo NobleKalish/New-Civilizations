@@ -14,14 +14,7 @@ public class NewCivilizationClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        /*
-         * Registers our Cube Entity's renderer, which provides a model and texture for the entity.
-         *
-         * Entity Renderers can also manipulate the model before it renders based on entity context (EndermanEntityRenderer#render).
-         */
-        EntityRendererRegistry.INSTANCE.register(NewCivilization.FARMER_ENTITY, (dispatcher, context) -> {
-            return new FarmerEntityRenderer(dispatcher);
-        });
+        EntityRendererRegistry.INSTANCE.register(NewCivilization.FARMER_ENTITY, (dispatcher, context) -> new FarmerEntityRenderer(dispatcher));
         ScreenRegistry.<FarmGuiDescription, FarmScreen>register(NewCivilization.FARM_SCREEN_HANDLER, (gui, inventory, title) -> new FarmScreen(gui, inventory.player, title));
     }
 }
