@@ -33,7 +33,7 @@ import java.util.Random;
 public class FarmEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
     private final String FARM_ID = "farm";
     private final int woodRequirement = 6;
-    private BlockPos offset = new BlockPos(0, -1, 0);
+    private final BlockPos offset = new BlockPos(0, -1, 0);
 
     private final Identifier structureName = new Identifier(NewCivilization.MODID, FARM_ID);
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(9, ItemStack.EMPTY);
