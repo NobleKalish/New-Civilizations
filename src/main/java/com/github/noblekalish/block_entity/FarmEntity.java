@@ -32,7 +32,7 @@ import java.util.Random;
 public class FarmEntity extends LootableContainerBlockEntity implements PropertyDelegateHolder, Tickable {
     private final String FARM_ID = "farm";
     private static final int WOOD_REQUIREMENT = 6;
-    private final BlockPos offset = new BlockPos(0, -1, 0);
+    private final BlockPos offset = new BlockPos(0, -1, 1);
     private static final int MAX_PROGRESS = 75;
     private int progress = 0;
 
