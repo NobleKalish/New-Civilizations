@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "newciv:block/farm_block" }
+  }
+}
